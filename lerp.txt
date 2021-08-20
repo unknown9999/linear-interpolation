@@ -1,0 +1,38 @@
+function IntLerp(S, E, T)
+    return S+(E-S)*T;
+end
+
+
+
+function CFrameLerp(S, E, T)
+    
+    SxAng, SyAng, SzAng = S:ToEulerAnglesXYZ();
+    ExAng, EyAng, EzAng = E:ToEulerAnglesXYZ();
+    
+    xAng, yAng, zAng = IntLerp(SxAng, ExAng, T), IntLerp(SyAng, EyAng, T), IntLerp(SzAng, EzAng, T);
+    
+    SxPos, SyPos, SzPos = S.X, S.Y, S.Z;
+    ExPos, EyPos, EzPos = E.X, E.Y, E.Z;
+    
+    xPos, yPos, zPos = IntLerp(SxPos, ExPos, T), IntLerp(SyPos, EyPos, T), IntLerp(SzPos, EzPos, T);
+    
+    
+    
+    return CFrame.new(xPos, yPos, zPos) * CFrame.Angles(xAng, yAng, zAng);
+    
+end
+
+function lerp(S, E ,T)
+    TypeS = typeof(S);
+    TypeE = typeof(E);
+    if TypeS == "CFrame" and TypeE == "CFrame" then -- make sure the end and start are the same
+        return CFrameLerp(S, E, T);
+        
+    elseif TypeS == "Vector3" and TypeE == "Vector3" or TypeS == "number" and TypeE == "number" then
+        return IntLerp(S, E, T);
+        
+        
+    else
+        print("Error lerping: Unknown Type, Feel free to change the function to add it!")
+    end
+end
