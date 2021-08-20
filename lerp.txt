@@ -1,3 +1,31 @@
+function align(a, b) -- Credits to insonify for this version
+    local att0 = Instance.new("Attachment", a)
+    att0.Position = Vector3.new(0, 0, 0)
+    local att1 = Instance.new("Attachment", b)
+    att1.Position = Vector3.new(0, 0, 0)
+    --//
+    local al = Instance.new("AlignPosition", a)
+    al.Attachment0 = att0
+    al.Attachment1 = att1
+    al.RigidityEnabled = false
+    al.ReactionForceEnabled = false
+    al.ApplyAtCenterOfMass = true
+    al.MaxForce = 10000000
+    al.MaxVelocity = math.huge
+    al.Responsiveness = 200
+    --//
+    local ao = Instance.new("AlignOrientation", a)
+    ao.Attachment0 = att0
+    ao.Attachment1 = att1
+    ao.RigidityEnabled = false
+    ao.ReactionTorqueEnabled = true
+    ao.PrimaryAxisOnly = false
+    ao.MaxTorque = 10000000
+    ao.MaxAngularVelocity = math.huge
+    ao.Responsiveness = 200
+end
+
+
 function IntLerp(S, E, T)
     return S+(E-S)*T;
 end
