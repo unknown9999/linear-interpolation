@@ -1,3 +1,6 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unknown9999/linear-interpolation/main/lerp.txt", true))();
+
+
 lp = game.Players.LocalPlayer;
 char = lp.Character;
 hrp = char.HumanoidRootPart;
@@ -96,3 +99,26 @@ fchar.Humanoid.PlatformStand = false;
 fchar.Animate.Disabled = true;
 wait();
 fchar.Animate.Disabled = false;
+
+
+
+
+-- if die then res
+
+dieloop = 
+spawn(function()
+    lp = game.Players.LocalPlayer;
+    char = workspace[lp.Name];
+    
+    fchar = workspace["FakeChar"];
+    
+    
+    l = game:GetService("RunService").Stepped:connect(function()
+        if(not fchar:FindFirstChild("Humanoid") or not fchar:FindFirstChild("Head") or fchar.Humanoid.Health == 0) then
+            lp.Character = char;
+            l:Disconnect();
+            fchar:Destroy();
+            lp.Character.Humanoid.Health = 0;
+        end
+    end)
+end)
