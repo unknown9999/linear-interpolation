@@ -5,7 +5,6 @@ end
 
 
 function CFrameLerp(S, E, T)
-    
     SxAng, SyAng, SzAng = S:ToEulerAnglesXYZ();
     ExAng, EyAng, EzAng = E:ToEulerAnglesXYZ();
     
@@ -19,8 +18,28 @@ function CFrameLerp(S, E, T)
     
     
     return CFrame.new(xPos, yPos, zPos) * CFrame.Angles(xAng, yAng, zAng);
-    
 end
+
+function BrickColorLerp(S, E, T)
+    sR, sG, sB = S.R, S.G, S.B;
+    eR, eG, sB = E.R, E.G, E.B;
+    
+    lR, lG, lB = IntLerp(sR, eR, T), IntLerp(sG, eG, T), IntLerp(sG, eG, T)
+    
+    return BrickColor.new(lR, lG, lB);
+end
+
+
+function Color3Lerp(S, E, T)
+    sR, sG, sB = S.R, S.G, S.B;
+    eR, eG, sB = E.R, E.G, E.B;
+    
+    lR, lG, lB = IntLerp(sR, eR, T), IntLerp(sG, eG, T), IntLerp(sG, eG, T)
+    
+    return Color3.new(lR, lG, lB);
+end
+
+
 
 function lerp(S, E ,T)
     TypeS = typeof(S);
@@ -28,11 +47,28 @@ function lerp(S, E ,T)
     if TypeS == "CFrame" and TypeE == "CFrame" then -- make sure the end and start are the same
         return CFrameLerp(S, E, T);
         
+    
     elseif TypeS == "Vector3" and TypeE == "Vector3" or TypeS == "number" and TypeE == "number" then
         return IntLerp(S, E, T);
+        
+    
+    elseif TypeS == "BrickColor" and TypeE == "BrickColor" then
+        BrickColorLerp(S, E, t);
+        
+    
+    elseif TypeS == "Color3" and TypeE == "Color3" then
+        Color3Lerp(S, E, t);
         
         
     else
         print("Error lerping: Unknown Type, Feel free to change the function to add it!")
     end
 end
+
+
+Debugging = {
+    ["IntLerp"] = IntLerp,
+    ["CFrameLerp"] = CFrameLerp,
+    ["BrickColorLerp"] = BrickColorLerp,
+    ["Color3Lerp"] = Color3Lerp
+}
