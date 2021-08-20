@@ -123,6 +123,7 @@ spawn(function()
             lp.Character = char;
             l:Disconnect();
             fchar:Destroy();
+            wait()
             lp.Character.Humanoid.Health = 0;
         end
     end)
