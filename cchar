@@ -115,7 +115,7 @@ spawn(function()
     lp = game.Players.LocalPlayer;
     char = workspace[lp.Name];
     
-    fchar = workspace["FakeChar"];
+    fchar = lp.Character;
     
     
     l = game:GetService("RunService").Stepped:connect(function()
