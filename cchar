@@ -24,7 +24,7 @@ NetworkLoop = spawn(function()
     lp = game.Players.LocalPlayer;
     char = workspace[lp.Name];
     
-    game:GetService("RunService").Heartbeat:connect(function()
+    _G.Velocity = game:GetService("RunService").Heartbeat:connect(function()
         if(char:FindFirstChild("Right Arm") and char:FindFirstChild("Left Arm") and char:FindFirstChild("Right Leg") and char:FindFirstChild("Left Leg")) then
             char["Right Arm"].Velocity = Vector3.new(29.999,0,0);   
             char["Left Arm"].Velocity = Vector3.new(29.999,0,0); 
@@ -42,7 +42,7 @@ CollisionLoop = spawn(function()
     fchar = workspace["FakeChar"];
     
     
-    game:GetService("RunService").Stepped:connect(function()
+    _G.Collision = game:GetService("RunService").Stepped:connect(function()
         if(char:FindFirstChild("Right Arm") and char:FindFirstChild("Left Arm") and char:FindFirstChild("Right Leg") and char:FindFirstChild("Left Leg")) then
             char["Right Arm"].CanCollide = false  
             char["Left Arm"].CanCollide = false
@@ -117,6 +117,8 @@ spawn(function()
         if(not fchar:FindFirstChild("Humanoid") or not fchar:FindFirstChild("Head") or fchar.Humanoid.Health == 0) then
             lp.Character = char;
             l:Disconnect();
+            _G.Collison:Disconnect();
+            _G.Velocity:Disconnect();
             fchar:Destroy();
             lp.Character.Humanoid.Health = 0;
         end
