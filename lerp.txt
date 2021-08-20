@@ -5,19 +5,22 @@ end
 
 
 function CFrameLerp(S, E, T)
-    SxAng, SyAng, SzAng = S:ToEulerAnglesXYZ();
-    ExAng, EyAng, EzAng = E:ToEulerAnglesXYZ();
+    -- Lerp all at once.
     
-    xAng, yAng, zAng = IntLerp(SxAng, ExAng, T), IntLerp(SyAng, EyAng, T), IntLerp(SzAng, EzAng, T);
+    SA = {x, y, z, r00, r01, r02, r10, r11, r12, r20, r21, r22};
+    EA = {x, y, z, r00, r01, r02, r10, r11, r12, r20, r21, r22};
     
-    SxPos, SyPos, SzPos = S.X, S.Y, S.Z;
-    ExPos, EyPos, EzPos = E.X, E.Y, E.Z;
+    SA[1], SA[2], SA[3], SA[4], SA[5], SA[6], SA[7], SA[8], SA[9], SA[10], SA[11], SA[12] = S:components();
+    EA[1], EA[2], EA[3], EA[4], EA[5], EA[6], EA[7], EA[8], EA[9], EA[10], EA[11], EA[12] = E:components();
     
-    xPos, yPos, zPos = IntLerp(SxPos, ExPos, T), IntLerp(SyPos, EyPos, T), IntLerp(SzPos, EzPos, T);
+    LA = {};
     
+    for i,Val in pairs(SA) do
+        LV = IntLerp(Val,EA[i],T);
+        table.insert(LA, LV);
+    end
     
-    
-    return CFrame.new(xPos, yPos, zPos) * CFrame.Angles(xAng, yAng, zAng);
+    return CFrame.new(LA[1], LA[2], LA[3], LA[4], LA[5], LA[6], LA[7],LA[8] , LA[9], LA[10], LA[11], LA[12]);
 end
 
 function BrickColorLerp(S, E, T)
