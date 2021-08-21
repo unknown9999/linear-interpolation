@@ -13,7 +13,8 @@ fchar.Parent = workspace;
 for i,v in pairs(fchar:GetDescendants()) do
     if v:IsA("BasePart") then
         v.Transparency = 1;
-        
+    elseif v:IsA("Accessory") then
+        v:Destroy();
     elseif v.Name == "Face" then
         v:Destroy();
     end
