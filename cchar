@@ -87,7 +87,7 @@ align(char["Left Leg"], fchar["Left Leg"]);
 align(char["Torso"], fchar["Torso"]);
 align(char["HumanoidRootPart"], fchar["HumanoidRootPart"]);
 
-fchar.Torso:WaitForChild("Attachment").Position = Vector3.new(0,0.5,0);
+fchar.Torso:WaitForChild("Torsoatt").Position = Vector3.new(0,0.5,0);
 
 --fchar["Right Arm"]:WaitForChild("Attachment").Position = Vector3.new(0,-0.5,0);
 --fchar["Left Arm"]:WaitForChild("Attachment").Position = Vector3.new(0,-0.5,0);
