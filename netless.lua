@@ -3,7 +3,7 @@ pcall(function()
     settings().Physics.PhysicsEnvironmentalThrottle = Enum.EnviromentalPhysicsThrottle.Disabled
 end)
 
-local function Net(Part)
+function Net(Part)
     local Netless; Netless = coroutine.create(function()
         while Part do
             Part.RotVelocity = Vector3.new();
@@ -14,7 +14,7 @@ local function Net(Part)
     coroutine.resume(Netless);
 end
 
-local function Align(Item, Item2, Position, Orientation)
+function Align(Item, Item2, Position, Orientation)
     local AttachmentA = Instance.new("Attachment", Item)
     local AttachmentB = Instance.new("Attachment", Item2)
 
