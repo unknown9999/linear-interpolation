@@ -1,31 +1,53 @@
-function align(a, b) -- Credits to insonify for this version
-    local att0 = Instance.new("Attachment", a)
-    att0.Position = Vector3.new(0, 0, 0)
-    att0.Name = a.Name.. "att"
-    local att1 = Instance.new("Attachment", b)
-    att1.Position = Vector3.new(0, 0, 0)
-    att1.Name = b.Name.."att"
-    --//
-    local al = Instance.new("AlignPosition", a)
-    al.Attachment0 = att0
-    al.Attachment1 = att1
-    al.RigidityEnabled = false
-    al.ReactionForceEnabled = false
-    al.ApplyAtCenterOfMass = true
-    al.MaxForce = 10000000
-    al.MaxVelocity = math.huge
-    al.Responsiveness = 200
-    --//
-    local ao = Instance.new("AlignOrientation", a)
-    ao.Attachment0 = att0
-    ao.Attachment1 = att1
-    ao.RigidityEnabled = false
-    ao.ReactionTorqueEnabled = true
-    ao.PrimaryAxisOnly = false
-    ao.MaxTorque = 10000000
-    ao.MaxAngularVelocity = math.huge
-    ao.Responsiveness = 200
+pcall(function()
+    settings().Physics.AllowSleep = false
+    settings().Physics.PhysicsEnvironmentalThrottle = Enum.EnviromentalPhysicsThrottle.Disabled
+end)
+
+local function Net(Part)
+    local Netless; Netless = coroutine.create(function()
+        while Part do
+            Part.RotVelocity = Vector3.new();
+            Part.AssemblyLinearVelocity = Vector3.new(0, -25.1, 0);
+            task.wait()
+        end
+    end)
+    coroutine.resume(Netless);
 end
+
+local function Align(Item, Item2, Position, Orientation)
+    local AttachmentA = Instance.new("Attachment", Item)
+    local AttachmentB = Instance.new("Attachment", Item2)
+
+    local AlignPosition = Instance.new("AlignPosition", Item)
+    local AlignOrientation = Instance.new("AlignOrientation", Item)
+
+    AttachmentA.Position = Position or Vector3.new(0,0,0)
+    AttachmentA.Orientation = Orientation or Vector3.new(0,0,0)
+
+    AlignPosition.Attachment0 = AttachmentA 
+    AlignPosition.Attachment1 = AttachmentB
+    AlignPosition.RigidityEnabled = true
+    AlignPosition.ReactionForceEnabled = false
+    AlignPosition.ApplyAtCenterOfMass = false
+    AlignPosition.MaxForce = math.huge
+    AlignPosition.MaxVelocity = math.huge * math.huge
+    AlignPosition.Responsiveness = math.huge * math.huge
+
+    AlignOrientation.Attachment0 = AttachmentA 
+    AlignOrientation.Attachment1 = AttachmentB
+    AlignOrientation.ReactionTorqueEnabled = false
+    AlignOrientation.PrimaryAxisOnly = false
+    AlignOrientation.MaxTorque = math.huge
+    AlignOrientation.MaxAngularVelocity = math.huge * math.huge
+    AlignOrientation.Responsiveness = math.huge * math.huge
+
+    Item.CustomPhysicalProperties = PhysicalProperties.new(1/0/1, 1/0/1, 1/0/1, 1/0/1, 1/0/1)
+
+    return Item2
+end
+
+
+
 
 
 function IntLerp(S, E, T)
