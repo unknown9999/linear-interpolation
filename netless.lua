@@ -3,7 +3,11 @@ pcall(function()
     settings().Physics.PhysicsEnvironmentalThrottle = Enum.EnviromentalPhysicsThrottle.Disabled
 end)
 
+getgenv().NetlessParts = NetlessParts or {};
+
 function Net(Part)
+    if table.find(NetlessParts, Part) then return end;
+    table.insert(Netlessparts, Part);
     local Netless; Netless = coroutine.create(function()
         while Part do
             Part.RotVelocity = Vector3.new();
