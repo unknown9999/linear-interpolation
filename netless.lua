@@ -9,11 +9,11 @@ function Net(Part)
     if table.find(NetlessParts, Part) then return end;
     table.insert(NetlessParts, Part);
     local Netless; Netless = coroutine.create(function()
-        while Part do
+        local conn = game:GetService("RunService").Stepped:Connect(function()
+            if not Part then conn:Disconnect end
             Part.RotVelocity = Vector3.new();
             Part.AssemblyLinearVelocity = Vector3.new(0, -25.1, 0);
-            task.wait()
-        end
+        end)
     end)
     coroutine.resume(Netless);
 end
