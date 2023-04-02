@@ -8,14 +8,13 @@ getgenv().NetlessParts = NetlessParts or {};
 function Net(Part)
     if table.find(NetlessParts, Part) then return end;
     table.insert(NetlessParts, Part);
-    local Netless; Netless = coroutine.create(function()
+    local Netless; Netless = coroutine.wrap(function()
         local conn = game:GetService("RunService").Stepped:Connect(function()
-            if not Part then conn:Disconnect end
+            if not Part then conn:Disconnect() end
             Part.RotVelocity = Vector3.new();
             Part.AssemblyLinearVelocity = Vector3.new(0, -25.1, 0);
         end)
-    end)
-    coroutine.resume(Netless);
+    end)()
 end
 
 function Align(Item, Item2, Position, Orientation)
